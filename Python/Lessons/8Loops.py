@@ -63,6 +63,7 @@ for x in range(1, 21):
    else:
        print(x)
 
+
 # nested loop = A loop within another loop (outer, inner)
 #                          outer loop:
 #                              inner loop:
