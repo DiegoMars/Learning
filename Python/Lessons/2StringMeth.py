@@ -3,7 +3,7 @@ name = "diego"
 
 # returns length of string
 print(len(name))
-# finds index of chracater, or returns -1
+# finds index of character, or returns -1
 print(name.find("D"))
 # looks starting from the end
 print(name.rfind("d"))
