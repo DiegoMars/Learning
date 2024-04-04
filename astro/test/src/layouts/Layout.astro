@@ -8,7 +8,7 @@ interface Props {
 	image?: string;
 }
 
-const { title, description = "Community of music producers and enthusiasts", image = "/images/band.jpg" } = Astro.props;
+const { title, description = "Community of music producers and enthusiasts", image = "/favicon.svg" } = Astro.props;
 ---
 
 <!doctype html>
@@ -17,7 +17,7 @@ const { title, description = "Community of music producers and enthusiasts", ima
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={image} />
 		<meta name="generator" content={Astro.generator} />
 		<meta property="og:image" content={image} />
 		<ViewTransitions/>
