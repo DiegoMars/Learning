@@ -2,15 +2,8 @@
 using namespace std;
 
 int main() {
-    int n;
-    cin >> n;
-    int count = 0;
-    for (int i = 1; i<= n; i++) {
-        if (i % 10 == 1) {
-            ++count;
-        }
-    }
-    cout << count << endl;
+    int n[1];
+    cout << n << endl;
 
     return 0;
 }
