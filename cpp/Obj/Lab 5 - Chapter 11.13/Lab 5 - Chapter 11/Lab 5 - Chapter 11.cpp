@@ -8,7 +8,7 @@ class Course
 {
 public:
     Course(const string& courseName, int capacity);
-    Course(Course& copy);
+    Course(const Course& copy);
     ~Course();
     string getCourseName() const;
     void addStudent(const string& name);
@@ -31,7 +31,7 @@ Course::Course(const string& courseName, int capacity) {
     students = new string[capacity];
 }
 
-Course::Course(Course& copy) {
+Course::Course(const Course& copy) {
     numberOfStudents = copy.numberOfStudents;
     capacity = copy.capacity;
     courseName = copy.courseName;
@@ -51,12 +51,16 @@ string Course::getCourseName() const {
 
 void Course::addStudent(const string& name) {
     // Work here
+    // If at capacity
     if (numberOfStudents == capacity) {
-        capacity++;
+        capacity++;                                  // Add one to the capacity
+        // Make a new string with the new capacity
         string* temparr = new string[capacity];
+        // Move all students into the new string
         for (int i = 0; i < numberOfStudents; i++) {
             temparr[i] = *(students + i);
         }
+        // Update students
         delete[] students;
         students = temparr;
     }
@@ -65,13 +69,14 @@ void Course::addStudent(const string& name) {
 }
 
 void Course::dropStudent(const string& name) {
-    // Work here
+    // Looks for the given student name in the list of students
     for (int i = 0; i < numberOfStudents; i++) {
         if (name == students[i]) {
-            for (int j = i; j < numberOfStudents; j++) {
+            // Once it is found, move all students accordingly
+            for (int j = i; j < numberOfStudents-1; j++) {
                 students[j] = students[j + 1];
             }
-            --numberOfStudents;
+            --numberOfStudents;  // Update the number of students
             break;
         }
     }
@@ -114,5 +119,7 @@ int main() {
 
 // Output
 /*
-
+    2
+    Ben
+    Bhav
 */
