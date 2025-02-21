@@ -9,7 +9,7 @@ using namespace std;
 // array of objects (of type Inventory). It will then print these values
 // to the screen.
 
-// PLACE YOUR NAME HERE
+// Diego Martinez
 
 // Example: Given the following data file:
 //		986 8
@@ -48,6 +48,7 @@ int main()
 
 	// Fill in the code that defines an array of objects of class Inventory
 	// called products. The array should be of size NUMOFPROD
+	Inventory products[NUMOFPROD];
 
 	int pos;	// loop counter
 	int id;		// variable holding the id number
@@ -57,12 +58,32 @@ int main()
 	// from a file into the array of objects. There should be calls to both
 	// getId and getAmount member functions somewhere in this code.
 	// Example: products[pos].getId(id); will be somewhere in this code
+	for(pos = 0; pos < NUMOFPROD; pos++){
+		infile >> id;
+		infile >> total;
+		products[pos].getId(id);
+		products[pos].getAmount(total);
+	}
 
 	// Fill in the code to print out the values (itemNumber and numOfItem) for
 	// each object in the array products.
 	// This should be done by calling the member function display within a loop
+	for(pos=0; pos < NUMOFPROD; pos++){
+		products[pos].display();
+	}
 
 	return 0;
 }
 
 // Write the implementations for all the member functions of the class.
+void Inventory::getId(int item){
+	itemNumber = item;
+}
+
+void Inventory::getAmount(int num){
+	numOfItem = num;
+}
+
+void Inventory::display(){
+	cout << "Item number " << itemNumber << " has " << numOfItem << " items in stock" << endl;
+}
