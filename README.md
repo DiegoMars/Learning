@@ -1,6 +1,7 @@
 # Learning
-This is just a learning repository for me
+This is my repo where I have anything from school or personal learning
+
 Plan to have code on:
-    Python
-    Javascript
-    C++ (For class)
+* Python
+* Javascript
+* C++
