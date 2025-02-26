@@ -1,0 +1,85 @@
+#include<iostream>
+using namespace std;
+
+class Cancer {
+public:
+    // Constructors
+    Cancer(string name, int id_number, string affected_location, string Stage);
+    Cancer(string name, int id_number);
+    Cancer();
+
+    // Mutators
+    void set_name(string name);
+    void set_id_number(int id_number);
+    void set_affected_location(string affected_location);
+    void set_Stage(string Stage);
+
+    // Accessor
+    string r_name();
+    int r_id_number();
+    string r_affected_location();
+    string r_Stage();
+private:
+    string name;
+    int id_number;
+    string affected_location;
+    string Stage;
+};
+
+int main() {
+    Cancer c1("Nothing", 1, "lungs", "2");
+    Cancer c2("Nothing 2", 2);
+    Cancer c3;  
+
+    cout << "test\n";
+
+    return 0;
+}
+
+// Constructors Implementation
+Cancer::Cancer(string name, int id_number, string affected_location, string Stage){
+    this->name = name;
+    this->id_number = id_number;
+    this->affected_location = affected_location;
+    this->Stage = Stage;
+}
+Cancer::Cancer(string name, int id_number){
+    this->name = name;
+    this->id_number = id_number;
+    affected_location = "";
+    Stage = "";
+}
+Cancer::Cancer(){
+    name = "";
+    id_number = 0;
+    affected_location = "";
+    Stage = "";
+}
+
+// Mutators Implementation
+void Cancer::set_name(string name){
+    this->name = name;
+}
+void Cancer::set_id_number(int id_number){
+    this->id_number = id_number;
+}
+void Cancer::set_affected_location(string affected_location){
+    this->affected_location = affected_location;
+}
+void Cancer::set_Stage(string Stage){
+    this->Stage = Stage;
+}
+
+// Accessor Implementation
+string Cancer::r_name(){
+    return name;
+}
+int Cancer::r_id_number(){
+    return id_number;
+}
+string Cancer::r_affected_location(){
+    return affected_location;
+}
+string Cancer::r_Stage(){
+    return Stage;
+}
