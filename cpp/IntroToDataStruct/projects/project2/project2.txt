@@ -1,0 +1,42 @@
+#include <iostream>
+#include "unorderedLinkedList.h"
+using namespace std;
+
+int main()
+{
+    unorderedLinkedList<int> list1;
+    int numToDelete = 7;
+    int num; // Number we are deleting
+
+    cout << "Enter integers ending with -999" << endl;
+    cin >> num;
+
+    while (num != -999)
+    {
+        list1.insertLast(num);
+        cin >> num;
+    }
+    cout << endl;
+
+    // Original list
+    cout << "Original List: ";
+    list1.print();
+    cout << endl;
+
+    // Smallest deleted
+    cout << "After deleting the smallest node: ";
+    list1.deleteSmallest();
+    list1.print();
+    cout << endl;
+
+    // All instances of num deleted
+    cout << "After deleting all occurances of " << numToDelete << ": ";
+    list1.deleteAllNum(numToDelete);
+    list1.print();
+    cout << endl;
+
+    return 0;
+}
+
+// Test run
+// 2 3 7 2 7 4 -999
