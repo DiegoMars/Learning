@@ -3,10 +3,11 @@
 #include "minimalSpanTreeType.h"
 
 using namespace std;
- 
+
+// Write a program that outputs the minimal spanning tree for a given graph
 int main()  
 {
-	cout << "See Programming Exercise 4." << endl;
+	
  
 	return 0;
 } 
