@@ -1,0 +1,44 @@
+// Write a program that stores a series of numbers in a binary tree. Then 
+// have the program insert the values into a queue in ascending order. 
+// Dequeue the values and display them on the screen to confirm that they 
+// were stored in the proper order.
+#include<iostream>
+#include "queue.h"
+#include "binarySearchTree.h"
+using namespace std;
+
+void inOrder(nodeType<int>* node, queueType<int>& q);
+
+int main(){
+    int seriesOfNums[] = {50, 30, 70, 20, 40, 60, 80};
+    int size = 7;
+
+
+    bSearchTreeType<int> tree;
+    queueType<int> queue;
+
+    for(int i = 0; i<size; i++){
+        tree.insert(seriesOfNums[i]);
+    }
+    
+    inOrder(tree.root,queue);
+
+    while (!queue.isEmpty()) {
+        cout << queue.front() << " ";
+        queue.deleteQueue();
+    }
+
+    return 0;
+}
+
+// I believe that we just need to go through the code in an inorder traversal
+void inOrder(nodeType<int>* node, queueType<int>& q) {
+    if (node != nullptr) {
+        inOrder(node->lLink, q);
+        q.addQueue(node->info);
+        inOrder(node->rLink, q);
+    }
+}
+
+// Test input:
+// 50, 30, 70, 20, 40, 60, 80

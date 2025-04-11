@@ -1,0 +1,59 @@
+//Header File Binary Search Tree
+
+#ifndef H_binarySearchTree
+#define H_binarySearchTree
+#include <iostream> 
+#include "binaryTree.h"
+
+using namespace std;
+
+template <class elemType>
+class bSearchTreeType: public binaryTreeType<elemType>
+{
+public: 
+    void insert(const elemType& insertItem);
+};
+
+
+template <class elemType>
+void bSearchTreeType<elemType>::insert
+                 (const elemType& insertItem)
+{
+    nodeType<elemType> *c; //pointer to traverse the tree
+    nodeType<elemType> *tC = nullptr; //pointer behind c
+    nodeType<elemType> *nN;  //pointer to create the node
+
+    nN = new nodeType<elemType>;
+    nN->info = insertItem;
+    nN->lLink = nullptr;
+    nN->rLink = nullptr;
+
+    if (root == nullptr)
+        root = nN;
+    else
+    {
+        c = root;
+ 
+        while (c != nullptr)
+        {
+            tC = c;
+
+            if (c->info == insertItem)
+            {
+                cout << "The item to be inserted is already in the tree -- duplicates are not allowed." << endl;
+                return;
+            }
+            else if (c->info > insertItem)
+                c = c->lLink;
+            else
+                c = c->rLink;
+        }//end while
+
+        if (tC->info > insertItem)
+            tC->lLink = nN;
+        else
+            tC->rLink = nN;
+    }
+}//end insert
+
+#endif

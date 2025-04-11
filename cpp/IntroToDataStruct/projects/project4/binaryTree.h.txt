@@ -1,0 +1,40 @@
+//Header File Binary Search Tree
+#ifndef H_binaryTree
+#define H_binaryTree
+
+#include <iostream> 
+
+using namespace std;
+
+//Definition of the Node
+template <class elemType>
+struct nodeType
+{
+    elemType info; 
+    nodeType<elemType> *lLink;
+    nodeType<elemType> *rLink;
+};
+	
+//Definition of the class
+template <class elemType>
+class binaryTreeType
+{
+public:
+    // Constructor
+    binaryTreeType();
+
+    // Functions
+    virtual void insert(const elemType& insertItem) = 0;
+    nodeType<elemType> *root;
+
+private:
+    void inorder(nodeType<elemType> *p) const;
+};
+
+template <class elemType>
+binaryTreeType<elemType>::binaryTreeType()
+{
+    root = nullptr;
+}
+
+#endif

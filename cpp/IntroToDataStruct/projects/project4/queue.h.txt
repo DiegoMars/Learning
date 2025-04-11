@@ -1,0 +1,69 @@
+#ifndef H_queue
+#define H_queue
+
+using namespace std;
+
+// For this implementation of a queue, I'll be using arrays
+// The operations are:
+//  Operations include
+    // * `deleteQueue`
+
+template <class Type>
+class queueType
+{
+    public:
+        // Constructors
+        queueType(int num = 100);
+
+        // Functions
+        bool isEmpty(); // empty?
+        Type front();   // return front
+        void addQueue(Type element); // add to queue
+        void deleteQueue();          // delete the first element
+                                    // and move items forward
+    private:
+        int maxSize; // self explanatory
+        int count;   // Number of stuff in the queue
+        Type *list;  // pointer to the array
+};
+
+template <class Type>
+queueType<Type>::queueType(int num)
+{
+    maxSize = num;
+    count = 0;
+    list = new Type[num];
+    for (int i = 0; i<num; i++){
+        list[i] = 0;
+    }
+}
+
+template <class Type>
+bool queueType<Type>::isEmpty()
+{
+    return(count == 0);
+}
+
+template <class Type>
+Type queueType<Type>::front()
+{
+    return(list[0]);
+}
+
+template <class Type>
+void queueType<Type>::addQueue(Type element)
+{
+    count++;
+    list[count-1] = element;
+}
+
+template <class Type>
+void queueType<Type>::deleteQueue()
+{
+    for(int i = 1; i<=count; i++){
+        list[i-1] = list[i];
+    }
+    count--;
+}
+
+#endif
