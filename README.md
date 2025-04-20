@@ -5,3 +5,4 @@ Plan to have code on:
 * Python
 * Javascript
 * C++
+* LaTex
