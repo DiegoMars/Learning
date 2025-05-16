@@ -1,0 +1,6 @@
+# Ignore all the output of the Latex stuff other than the pdfs
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.gz
