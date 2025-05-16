@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsfonts} % To do stylized R and stuff
+\usepackage{amsmath}  % For the question* enviroment
+
+% Margin - 1 inch on all sides
+\usepackage[letterpaper]{geometry}
+\usepackage{times}
+\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in}
+
+%
+% Doublespacing
+%
+% \usepackage{setspace}
+% \doublespacing        % I am not going to use this here but it is good to
+                        % know about
+
+%
+% Rotating tables (e.g. sideways when too long)
+%
+\usepackage{rotating}
+
+%
+% Fancy-header package to modify header/page numbering (insert last name)
+%
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}            % Makes the left header empty
+\chead{}            % Makes the center header empty
+\rhead{\thepage}    % Puts a page number of the right header
+\lfoot{}            % Makes left footer empty
+\cfoot{}            % Makes center footer empty
+\rfoot{}            % Makes right footer empty
+\renewcommand{\headrulewidth}{0pt}  % Removes the horizontal line under the 
+                                    % header.
+\renewcommand{\footrulewidth}{0pt}  % Removes the horizontal line above the 
+                                    % footer.
+%To make sure we actually have header 0.5in away from top edge
+%12pt is one-sixth of an inch. Subtract this from 0.5in to get headsep value
+\setlength\headsep{0.333in}
+
+%
+% Makes it so that section numbers are bold, but not the text
+%
+\usepackage{titlesec}
+\titleformat{\section}
+  {\large}                  % Smaller than default \Large
+  {\bfseries\thesection}    % Bold number
+  {1em}
+  {}
+
+%%%%%%%%%%%%%%%%%
+% Begin document
+%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{flushleft}
+
+%Title
+\begin{center}
+    \bfseries\LARGE Linear Algebra Exam 3 Study Guide
+\end{center}
+
+%Changes paragraph indentation to 0.5in
+\setlength{\parindent}{0.5in}
+%Begin body of paper here
+
+\section{\textbf{Section 5.2}: Inner Product Spaces}
+\begin{itemize}
+    \item An \textbf{inner product} (denoted as $\langle \vec{u},\vec{v} 
+            \rangle$) is literally just any operation that satifies the 
+            following axioms (let $\vec{u}$, $\vec{v}$, \& $\vec{w}$ be in a 
+            vector space $V$, and $c \in \mathbb{R}$):
+            \begin{enumerate}
+                \item $\langle \vec{u},\vec{v} \rangle = \langle \vec{v},
+                    \vec{u} \rangle$
+                \item $\langle \vec{u},\vec{v} + \vec{w} \rangle = \langle 
+                    \vec{u}, \vec{v} \rangle + \langle \vec{u},\vec{w} 
+                    \rangle$
+                \item $c \langle \vec{u},\vec{v} \rangle = \langle c\vec{u},
+                    \vec{v} \rangle = \langle \vec{u},c\vec{v} \rangle$
+                \item $\langle \vec{u},\vec{u} \rangle > 0$ \& $\langle 
+                    \vec{u}, \vec{v} \rangle = 0 $ iff $\vec{u}=0$
+            \end{enumerate}
+            Note: The dot product is an example of an inner product (it is also 
+            called the Euclidean inner product)
+    \item Note: An inner product can also be done on matrices, and even
+            definite integrals
+    \item \textbf{Inner product space}: a vector space with an inner product
+            defined
+    \item \textbf{Length of a vector}: $||\vec{u}|| = \sqrt{\langle \vec{u},
+            \vec{v} \rangle}$
+    \item \textbf{Distance between 2 vectors}: $d(\vec{u},\vec{v})=||\vec{u}-
+            \vec{v}||$
+    \item \textbf{The angle between 2 non-zero vectors}:
+            \begin{align*}
+                \cos(\theta) = \frac{\langle \vec{u},\vec{v} \rangle}
+                {||\vec{u}||||\vec{v}||} \text{, \& } 0 \leq \theta \leq \pi
+            \end{align*}
+    \item \textbf{Orthogonal}: $\langle \vec{u}, \vec{v} \rangle = 0$
+    \item \textbf{Unit vector eq}: $\vec{u} = \frac{\vec{v}}{||\vec{v}||}$ (or 
+            to normalize)
+    \item \textbf{Orthogonal Projections}: a vector broken down into 2 parts
+            \begin{itemize}
+                \item $\vec{\text{u}} = \hat{\text{u}} + \vec{z}$
+                        \begin{itemize}
+                            \item $\vec{\text{u}}$: a vector
+                            \item $\hat{\text{u}}$: the projection of 
+                                    $\vec{\text{u}}$ on another vector 
+                                    $\vec{v}$. Think of it has the shadow that 
+                                    $\vec{\text{u}}$ casts on all scalar 
+                                    multiples of $\vec{v}$
+                            \item $\vec{z}$: The vector orthogonal to $\vec{v}$
+                        \end{itemize}
+                \item $\hat{\text{u}} = \text{proj}_v \vec{\text{u}} = 
+                        \frac{\langle \vec{\text{u}},\vec{v} \rangle}{\langle 
+                        \vec{v}, \vec{v} \rangle}\vec{v}$
+                \item $\vec{z} = \vec{\text{u}} - \hat{\text{u}}$
+            \end{itemize}
+\end{itemize}
+
+\section{\textbf{Section 5.3}: Orthogonal Basis - Gram-Schmidt}
+\begin{itemize}
+    \item Vector spaces can have many basis, like how $\mathbb{R}^3$ has the
+            basis $B = \{ (1,0,0), (0,1,0), (0,0,1) \}$ (the standard basis for
+            $\mathbb{R}^3$). Standard basis have some important characteristics,
+            like how all the vectors in it are mutually orthogonal
+            \begin{align*}
+                (1,0,0) \cdot (0,1,0) &= 0 \\
+                (1,0,0) \cdot (0,0,1) &= 0 \\
+                (0,1,0) \cdot (0,0,1) &= 0
+            \end{align*}
+    \item \textbf{Orthogonal set}: $S = \{ \vec{v}_1, \vec{v}_1, \ldots, 
+            \vec{v}_n \} \in \mathbb{R}^n$ such that $\langle \vec{u}_i,
+            \vec{u}_j \rangle = 0$ $\forall$ $i \neq j$. Basically, all vectors 
+            are orthogonal to each other
+    \item \textbf{Othonormal set}: $S = \{ \vec{v}_1, \vec{v}_1, \ldots, 
+            \vec{v}_n \} \in \mathbb{R}^n$ such that: $\langle \vec{u}_i,
+            \vec{u}_j \rangle = 0$ $\forall$ $i \neq j$, and every vector is a
+            unit vector.
+    \item \textbf{Gram-Schmidt Orthonormalization Algorithm}: Algorithm to find 
+            orthonormal bases, where you start with a basis, you turn it into an
+            orthonormal basis, then normalize each vector.
+            \begin{enumerate}
+                \item Let $B = \{ \vec{v}_1, \vec{v}_1, \ldots, \vec{v}_n \}$ be
+                        a basis for an inner product space $V$
+                \item Let $B' = \{ \vec{w}_1, \vec{w}_1, \ldots, \vec{w}_n \}$, 
+                        where
+                        \begin{align*}
+                            \vec{w}_1 &= \vec{v}_1                              \\
+                            \vec{w}_2 &= \vec{v}_2 - \frac{\langle \vec{v}_2,
+                            \vec{w}_1 \rangle}{\langle \vec{w}_1, \vec{w}_1 
+                            \rangle} \vec{w}_1                                  \\
+                            \vec{w}_3 &= \vec{v}_3 - \frac{\langle \vec{v}_3,
+                            \vec{w}_1 \rangle}{\langle \vec{w}_1, \vec{w}_1 
+                            \rangle} \vec{w}_1 - \frac{\langle \vec{v}_3,
+                            \vec{w}_1 \rangle}{\langle \vec{w}_1, \vec{w}_1 
+                            \rangle} \vec{w}_1                                  \\
+                            \vdots                                              \\
+                            \vec{w}_n &= \vec{v}_n - \frac{\langle \vec{v}_n,
+                            \vec{w}_1 \rangle}{\langle \vec{w}_1, \vec{w}_1 
+                            \rangle} \vec{w}_1 - \frac{\langle \vec{v}_n, 
+                            \vec{w}_1 \rangle} {\langle \vec{w}_1, \vec{w}_1 
+                            \rangle} \vec{w}_1 - \dots - \frac{\langle 
+                            \vec{v}_n, \vec{w}_{n-1} \rangle} {\langle 
+                            \vec{w}_{n-1}, \vec{w}_{n-1} \rangle} \vec{w}_{n-1}
+                        \end{align*}
+                        Then $B'$ is an orthonormal basis for $V$
+                \item Let $\vec{u}_i = \frac{\vec{w}_i}{||\vec{w}_i||}$. Then
+                        $B'' = \{ \vec{u}_1, \vec{u}_1, \ldots, \vec{u}_n \}$ is
+                        an orthonormal basis for $V$
+            \end{enumerate}
+            Also, $\text{span}\{ \vec{v}_1, \vec{v}_1, \ldots, \vec{v}_n \} =
+            \text{span}\{ \vec{u}_1, \vec{u}_1, \ldots, \vec{u}_n \}$ for $k =
+            1,2,\ldots, n$
+\end{itemize}
+
+\section{\textbf{Section 6.1}: Introductions to Linear Transformations}
+\begin{itemize}
+    \item Get back to this 
+\end{itemize}
+
+\end{flushleft}
+\end{document}
