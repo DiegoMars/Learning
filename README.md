@@ -6,3 +6,6 @@ Plan to have code on:
 * Javascript
 * C++
 * LaTex
+* Sql
+* Chess theory for implementation in programming
+* Have lil projects about stuff I want to learn
