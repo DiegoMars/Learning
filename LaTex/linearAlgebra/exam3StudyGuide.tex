@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[15pt]{article}
 
 \usepackage{amsfonts} % To do stylized R and stuff
 \usepackage{amsmath}  % For the question* enviroment
@@ -78,8 +78,8 @@
                     \rangle$
                 \item $c \langle \vec{u},\vec{v} \rangle = \langle c\vec{u},
                     \vec{v} \rangle = \langle \vec{u},c\vec{v} \rangle$
-                \item $\langle \vec{u},\vec{u} \rangle > 0$ \& $\langle 
-                    \vec{u}, \vec{v} \rangle = 0 $ iff $\vec{u}=0$
+                \item $\langle \vec{u},\vec{u} \rangle \geq 0$ \& $\langle 
+                    \vec{u}, \vec{u} \rangle = 0 $ iff $\vec{u}=0$
             \end{enumerate}
             Note: The dot product is an example of an inner product (it is also 
             called the Euclidean inner product)
@@ -176,7 +176,242 @@
 
 \section{\textbf{Section 6.1}: Introductions to Linear Transformations}
 \begin{itemize}
-    \item Get back to this 
+    \item \textbf{Linear Transformations}: Denoted as $T: \mathbb{R}^n \to 
+          \mathbb{R}^m$, and is a function that satifies for $\vec{u}, \vec{v} 
+          \in \mathbb{R}^n$ and $k \in \mathbb{R}$ the following:
+          \begin{itemize}
+                \item The additive property: $T(\vec{u} + \vec{v}) = T(\vec{u})
+                        + T(\vec{v})$ (or addition)
+                \item The homogeneity property: $T(k\vec{u}) = kT(\vec{u})$ (or 
+                        scalar multiplication)
+                \item If there is an $A_{m \times n}$ matrix that applies the 
+                        linear transformation through matrix multiplication.
+                        \begin{itemize}
+                                \item $T(\vec{x}) = A_{m \times n} \vec{x}_{n 
+                                        \times 1}$
+                                \item If $T: \mathbb{R}^n \to \mathbb{R}^n$,
+                                        then $A_{n \times n}$
+                        \end{itemize}
+                \item $T(-\vec{v}) = -T(\vec{v})$
+                \item $T(0) = 0$
+          \end{itemize}
+     \item \textbf{Zero transformation}: $T(\vec{v}) = 0, \text{ for all } 
+           \vec{v}$
+     \item \textbf{Identity transformation}: $T(\vec{v}) = \vec{v}, 
+           \text{ for all } \vec{v}$
+\end{itemize}
+
+\section{\textbf{Section 6.2}: The Kernel and Range of Linear Transformation}
+\begin{itemize}
+      \item \textbf{Kernel}: all vectors $\vec{v}$ in $V$ such that that satisfy
+                $T(\vec{v}) = 0$ where $T: V \to W$. Denoted by $\text{ker}(T)$
+                \begin{itemize}
+                        \item Looking at $T(\vec{x}) = A \vec{x}$, with the 
+                                kernel would be all $\vec{x}$ where $A \vec{x} =
+                                0$. This is also the nullspace of $A$
+                        \item If $T: \mathbb{R}^n \to \mathbb{R}^m$, kernel is
+                                in $\mathbb{R}^n$
+                \end{itemize}
+      \item \textbf{Range}: of a linear transformation $T: V \to W$ is a
+                subspace of $W$. Think of it as the same as the range of a
+                function, where the range is a subset of the codomain
+                \begin{itemize}
+                        \item Looking at $T(\vec{x}) = A \vec{x}$, the range
+                                would be the column space of $A$
+                        \item If $T: \mathbb{R}^n \to \mathbb{R}^m$, range is in
+                                $\mathbb{R}^m$
+                \end{itemize}
+      \item \textbf{The dimension theorem}: says that rank$(T) + $ kern$(T)$ = 
+                dimension of the domain
+                \begin{itemize}
+                        \item rank$(T)$ is the dimension of the row space or 
+                                column space of $T$, or how many vectors are in 
+                                the row space or column space 
+                \end{itemize}
+      \item \textbf{One-to-one (or bijective)}: When $T(\vec{v}_1) = 
+                T(\vec{v}_2)$ iff $\vec{v}_1 = \vec{v}_2$ (same as one-to-one in
+                in a function)
+                \begin{itemize}
+                        \item A transformation $T: \mathbb{R}^n \to 
+                                \mathbb{R}^m$ is one-to-one iff ker$(T) = 
+                                \vec{0}_n$
+                                \begin{itemize}
+                                        \item If $R=$ rref$(A)$ has non-pivot 
+                                                columns (free variables) then 
+                                                $T$ is not one-to-one
+                                \end{itemize}
+                \end{itemize}
+      \item \textbf{Onto transformation}: When $T: \mathbb{R}^n \to 
+                \mathbb{R}^m$ range is all of $\mathbb{R}^m$ (same as onto in a
+                funcion)
+                \begin{itemize}
+                        \item Onto iff rank$(T) = m$
+                        \item When $R=$ rref$(A)$ has at least one row 
+                                consisting all zeros, then not onto
+                \end{itemize}
+\end{itemize}
+
+\section{\textbf{Section 6.3}: Matrices for Linear Transformations}
+\begin{itemize}
+        \item Example: 2 representations of $T: \mathbb{R}^3 \to \mathbb{R}^3$
+                \begin{itemize}
+                        \item $T(x_1, x_2, x_3) = (2x_1 + x_2 - x_3, -x_1 + 
+                                3x_2 - 2x_3, 3x_2 + 4x_3)$
+                        \item $T(\vec{x}) = A\vec{x} = \begin{bmatrix}
+                                        2 & 1 & -1 \\
+                                        -1 & 3 & -2 \\
+                                        0 & 3 & 4
+                                \end{bmatrix}
+                                \begin{bmatrix}
+                                        x_1 \\
+                                        x_2 \\
+                                        x_3
+                                \end{bmatrix}$
+                \end{itemize}
+                The second is simpler to write and understand
+        \item \textbf{Matrix addition/subtraction}: Given $A = \begin{bmatrix}
+                a_{ij}\end{bmatrix}_{m \times n}, B = \begin{bmatrix} b_{ij}
+                \end{bmatrix}_{m \times n}, A + B = \begin{bmatrix} a_{ij} + 
+                b_{ij}\end{bmatrix}$ and $1 \leq i \leq m$ and $1 \leq j \leq n$
+        \item \textbf{Recall}: $f \circ g = f(g(x))$
+                \begin{itemize}
+                        \item The same can be done with transformations: $T_1: 
+                                \mathbb{R}^n \to \mathbb{R}^k, T_2:
+                                \mathbb{R}^k \to \mathbb{R}^m, T_2 \circ T_1: 
+                                \mathbb{R}^n \to \mathbb{R}^m$
+                                \begin{gather*}
+                                        \vec{u} \in \mathbb{R}^n                \\ 
+                                        T_1(\vec{u}) = \vec{v} \in \mathbb{R}^k \\
+                                        T_2(\vec{u}) = \vec{w} \in \mathbb{R}^m \\
+                                        (T_2 \circ T_1)(\vec{u}) = T_2(
+                                        T_1(\vec{u})) = T_2(\vec{v}) = \vec{w}
+                                \end{gather*}
+                \end{itemize}
+        \item \textbf{Inverse Linear Transformation}: If $T_1: \mathbb{R}^n \to
+                \mathbb{R}^n$ and $T_2: \mathbb{R}^n \to \mathbb{R}^n$ are
+                linear transformations such that for every $\vec{v}$ in 
+                $\mathbb{R}^n$,
+                \[
+                        T_2(T_1(\vec{v})) = \vec{v}
+                \]
+                and
+                \[
+                        T_1(T_2(\vec{v})) = \vec{v}
+                \]
+                then $T_2$ is the \textbf{inverse} of $T_1$, and $T_1$ is 
+                \textbf{invertible}
+\end{itemize}
+
+\section{\textbf{Section 7.1}: Eigenvalues and Eigenvectors}
+\begin{itemize}
+        \item Eigenvalue problem: When $A$ is an $n \times n$ matrix, do nonzero
+                vectors $\vec{x}$ in $\mathbb{R}^n$ exist such that $A\vec{x}$
+                is a scalar multiple of $\vec{x}$, or $A\vec{x} = \lambda
+                \vec{x}$?
+                \begin{itemize}
+                        \item \textbf{Eigenvalue}: scalar denoted as $\lambda$
+                        \item \textbf{Eigenvectors}: The nonzero vector 
+                                $\vec{x}$ and cannot be zero
+                \end{itemize}
+        \item \textbf{Eigenspaces}: The set of all eigenvectors of a given 
+                eigenvalue $\lambda$, together with the $\vec{0}$. Since each 
+                eigenvalue can have infinitely many eigenvectors. This is also a
+                subspace of $\mathbb{R}^n$.
+        \item \textbf{Finding eigenvalue of A}: a scalar such that det$(\lambda 
+                I - A) = 0$
+                \begin{itemize}
+                        \item $|\lambda I - A| = \lambda^n + c_{n-1}
+                                \lambda^{n-1} + \dots + c_2 \lambda^2 + c_1 
+                                \lambda + c_0$
+                        \item Finding the roots of the above give you the 
+                                eigenvalues of $A$
+                \end{itemize}
+        \item \textbf{Finding eigenvectors of $\lambda$}: The nonzero solutions
+                of $(A - \lambda I)\vec{x} = 0$
+                \begin{itemize}
+                        \item For each $\lambda$, find the eigenvectors by
+                                solving the above equation. Requires row 
+                                reducing, and there must be at least one row of
+                                zeros
+                \end{itemize}
+        \item \textbf{Eigenvalues of Triangular Matrices}: If $A$ is an $n 
+                \times n$ triangular matrix, then its eigenvalues are the 
+                entries on its main diagonal
+\end{itemize}
+
+\section{\textbf{Section 7.2}: Diagonalization}
+\begin{itemize}
+        \item Diagonalization problem: For a square matrix $A$, does there exist
+                an invertible matrix $P$ such that $P^-1 A P$ is diagonal?
+        \item \textbf{Square matrix}: Diagonalizable when $A$ is similar to a
+                diagonal matrix $D$. Or when there is an invertible matrix $P$ 
+                such that $D = P^{-1} A P$.
+                \begin{itemize}
+                        \item A matrix $A_n$ is diagonal if it has n linearly 
+                                independent eigenvectors.
+                        \item Similar matrices have the same eigenvalues
+                \end{itemize}
+        \item \textbf{Steps for Diagonalizing a Square Matrix}: Let $A$ be a
+                square matrix
+                \begin{itemize}
+                        \item Find $n$ linearly independent eigenvectors 
+                                $\vec{p}_1, \vec{p}_2, \ldots, \vec{p}_3$ for 
+                                $A$ (if possible) with corresponding eigenvalues
+                                $\lambda_1, \lambda_2, \ldots, \lambda_n$. If 
+                                $n$ linearly independent vectors don't exist, 
+                                then $A$ is not diagonalizable
+                        \item Let $P$ be the $n \times n$ matrix whose columns
+                                consist of these eigenvectors. That is $P = 
+                                \begin{bmatrix}
+                                        \vec{p}_1 & \vec{p}_2 & \dots & 
+                                        \vec{p}_3
+                                \end{bmatrix}$
+                        \item The diagonal matrix $D = P^{-1} A P$ with have the
+                                eigenvalues $\lambda_1, \lambda_2, \ldots, 
+                                \lambda_n$ on its main diagonal.
+                \end{itemize}
+\end{itemize}
+
+\section{\textbf{Section 7.3}: Symmetric Matrices and Orthogonal Diagonalization}
+\begin{itemize}
+        \item \textbf{Symmetric matrix}: When a square matrix $A$ is equal to its
+                transpose, $A = A^\text{T}$. Guaranteed to be diagonalizable
+        \item \textbf{Symmetric matrix properities}:
+                \begin{enumerate}
+                        \item $A$ is diagonalizable
+                        \item All eigenvalues of $A$ are real
+                        \item If $\lambda$ is an eigenvalue of $A$ with 
+                                multiplicity $k$, then $\lambda$ has $k$ 
+                                linearly independent eigenvectors (or that the
+                                eigenspace of $\lambda$ has dimension $k$)
+                        \item If $\lambda_1$ and $\lambda_2$ are distinct
+                                eigenvalues of $A$, then their corresponding
+                                eigenvectors $\vec{x}_1$ and $\vec{x}_2$ are
+                                orthogonal
+                        \item $A$ is orthogonally diagonalizable (and has real
+                                eigenvalues) iff $A$ is symmetric
+                \end{enumerate}
+        \item \textbf{Orthogonal matrices}: When a square matrix $P$ is 
+                invertible, and $P^{-1} = P^\text{T}$. Also, its column vectors 
+                form an orthonormal set
+        \item \textbf{Orthogonal Diagonalization of a Symmetric Matrix}: Let $A$
+                be an $n \times n$ symmetric matrix.
+                \begin{enumerate}
+                        \item Find all eigenvalues of $A$ and determine the
+                                multiplicity of each.
+                        \item For each eigenvale of multiplicity 1, find a unit
+                                eigenvector. (Find any eigenvector and then
+                                normalize it.)
+                        \item For each eigenvalue of multiplicity of $k \geq 2$,
+                                find a set of $k$ linearly independent 
+                                eigenvectors. If this set is not othonormal,
+                                then apply the Gram-Schmidt orthonormalization
+                                process
+                        \item  The results from 2 and 3 produce an orthonormal
+                                set of $n$ eigenvectors. Use these to form the
+                                columns of $P$. The matrix $P^{-1}AP = P^TAP =
+                                D$ will be diagonal.
+                \end{enumerate}
 \end{itemize}
 
 \end{flushleft}
