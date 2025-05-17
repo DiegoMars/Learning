@@ -88,7 +88,7 @@
     \item \textbf{Inner product space}: a vector space with an inner product
             defined
     \item \textbf{Length of a vector}: $||\vec{u}|| = \sqrt{\langle \vec{u},
-            \vec{v} \rangle}$
+            \vec{u} \rangle}$
     \item \textbf{Distance between 2 vectors}: $d(\vec{u},\vec{v})=||\vec{u}-
             \vec{v}||$
     \item \textbf{The angle between 2 non-zero vectors}:
@@ -129,11 +129,11 @@
                 (1,0,0) \cdot (0,0,1) &= 0 \\
                 (0,1,0) \cdot (0,0,1) &= 0
             \end{align*}
-    \item \textbf{Orthogonal set}: $S = \{ \vec{v}_1, \vec{v}_1, \ldots, 
+    \item \textbf{Orthogonal set}: $S = \{ \vec{v}_1, \vec{v}_2, \ldots, 
             \vec{v}_n \} \in \mathbb{R}^n$ such that $\langle \vec{u}_i,
             \vec{u}_j \rangle = 0$ $\forall$ $i \neq j$. Basically, all vectors 
             are orthogonal to each other
-    \item \textbf{Othonormal set}: $S = \{ \vec{v}_1, \vec{v}_1, \ldots, 
+    \item \textbf{Othonormal set}: $S = \{ \vec{v}_1, \vec{v}_2, \ldots, 
             \vec{v}_n \} \in \mathbb{R}^n$ such that: $\langle \vec{u}_i,
             \vec{u}_j \rangle = 0$ $\forall$ $i \neq j$, and every vector is a
             unit vector.
@@ -153,24 +153,24 @@
                             \vec{w}_3 &= \vec{v}_3 - \frac{\langle \vec{v}_3,
                             \vec{w}_1 \rangle}{\langle \vec{w}_1, \vec{w}_1 
                             \rangle} \vec{w}_1 - \frac{\langle \vec{v}_3,
-                            \vec{w}_1 \rangle}{\langle \vec{w}_1, \vec{w}_1 
-                            \rangle} \vec{w}_1                                  \\
+                            \vec{w}_2 \rangle}{\langle \vec{w}_2, \vec{w}_2 
+                            \rangle} \vec{w}_2                                  \\
                             \vdots                                              \\
                             \vec{w}_n &= \vec{v}_n - \frac{\langle \vec{v}_n,
                             \vec{w}_1 \rangle}{\langle \vec{w}_1, \vec{w}_1 
                             \rangle} \vec{w}_1 - \frac{\langle \vec{v}_n, 
-                            \vec{w}_1 \rangle} {\langle \vec{w}_1, \vec{w}_1 
-                            \rangle} \vec{w}_1 - \dots - \frac{\langle 
+                            \vec{w}_2 \rangle} {\langle \vec{w}_2, \vec{w}_2 
+                            \rangle} \vec{w}_2 - \dots - \frac{\langle 
                             \vec{v}_n, \vec{w}_{n-1} \rangle} {\langle 
                             \vec{w}_{n-1}, \vec{w}_{n-1} \rangle} \vec{w}_{n-1}
                         \end{align*}
                         Then $B'$ is an orthonormal basis for $V$
                 \item Let $\vec{u}_i = \frac{\vec{w}_i}{||\vec{w}_i||}$. Then
-                        $B'' = \{ \vec{u}_1, \vec{u}_1, \ldots, \vec{u}_n \}$ is
+                        $B'' = \{ \vec{u}_1, \vec{u}_2, \ldots, \vec{u}_n \}$ is
                         an orthonormal basis for $V$
             \end{enumerate}
-            Also, $\text{span}\{ \vec{v}_1, \vec{v}_1, \ldots, \vec{v}_n \} =
-            \text{span}\{ \vec{u}_1, \vec{u}_1, \ldots, \vec{u}_n \}$ for $k =
+            Also, $\text{span}\{ \vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n \} =
+            \text{span}\{ \vec{u}_1, \vec{u}_2, \ldots, \vec{u}_n \}$ for $k =
             1,2,\ldots, n$
 \end{itemize}
 
