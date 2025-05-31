@@ -9,6 +9,10 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18} % Use the latest version you have
 
+% Psuedocode
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
 % Margin - 1 inch on all sides
 \usepackage[letterpaper]{geometry}
 \usepackage{times}
@@ -88,7 +92,7 @@ only reconstruct the secret if enough people agree to recreate it.
 How it can be implemented, polynomials would be used to create the shares and
 also recreate the secret. Lets say a polynomial $y = ax + b$. The $b$ in this
 case is the constant, and for SSS it would be the secret that is to be
-encrypted. Shares would be made by pluging in random numbers of $x$ and finding
+encrypted. Shares would be made by plugging in random numbers of $x$ and finding
 the $y$, and that pair $(x,y)$ would be a share. The coefficient(s) can be any
 random number when creating shares. For decrypting a secret, the polynomial that
 goes through $K$ points must be found, and again the constant of that polynomial
@@ -184,6 +188,108 @@ the new equations for the use of SSS would be:
     f(x) = \sum_{i=0}^{K-1} y_{i}l_{i}(0)
 \end{align*}
 The bottom equation would stay the same.
+
+With just the Lagrange Polynomial Interpolation, a basic version of SSS can be
+achieved, but another concept that could be added to improve the security of the
+algorithm. This concept is \textbf{Modular Arithmetic}. Modular Arithmetic is
+where the remainder of division. For example, the remainder of 8 divided by 6 is
+2. Equivalently, $8 \bmod 6$ would be $2$. When applying this to an
+equation, for example $(x+4) \bmod 7$ we get:
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines = middle,
+    xlabel = $x$,
+    ylabel = $y$,
+    grid = both,
+    xmin = -1, xmax = 11,
+    ymin = -1, ymax = 7.5,
+    xtick = {0,1,2,3,4,5,6,7,8,9,10},
+    ytick = {0,1,2,3,4,5,6,7},
+    enlargelimits=0.1,
+    legend style={at={(0.5,1.05)}, anchor=south}
+]
+\addplot[
+    color=blue,
+    thick,
+    sharp plot
+] table {
+    x  y
+    0  4
+    1  5
+    2  6
+    3  7
+};
+\addplot[
+    color=blue,
+    thick,
+    sharp plot
+] table {
+    x  y
+    3  0
+    4  1
+    5  2
+    6  3
+    7  4
+    8  5
+    9  6
+    10 7
+};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+Looking at this graph, we can see that the equation $y=x+4$ loops around under
+the line $x=7$. How does this apply to the SSS algorithm? Now that we have a
+polynomial with the secret of $4$  under the modulus of $7$ in this case, we make
+some shares. Let $x=1,2,3,4$. Plug them into the polynomial and we get
+$y=5,6,0,1$. Now the points look scrambled, and would be much harder to brute
+force looking for a polynomial that contains the secret using Lagrange if there
+are some shares known but not enough to recreate the secret. The divisor number
+thing will be referred to as modulus in this report, like the number $7$ in
+$\bmod 7$ will be referred to as modulus.
+
+One more thing to note about doing $\bmod$ is that we cannot do regular division
+under $\bmod$. For example, the fraction in $(\frac{3}{7}) \bmod 5$ cannot be
+done regularly. The way around this is that we have to find the \textbf{mod
+inverse} of the divisor. The $\bmod$ inverse of a number $a$ is a number $b$
+under $\bmod c$ such that $b \cdot a \bmod c = 1$. For example, the $\bmod$
+inverse of $7$ under $\bmod 5$ is $3$ since $3 \cdot 7 \bmod 5 = 1$. Now that we
+have the $\bmod$ inverse, we can multiply the dividend by the $\bmod$ inverse and
+that would be how we do division under $\bmod$. 
+
+\section{\textbf{Pseudocode}}
+
+Now how can we implement all of this? Let us first look at encryption. To encrypt
+a secret, we need the number that we want to be a secret $S$, the number of
+shares $N$, and the threshold $K$, making sure that $N \geq K$ since we need 
+enough shares to recreate the secret. The degree of polynomial needed to encrypt 
+the secret would be $K-1$, so for threshold of $3$, we would need a second degree
+polynomial. for example $ax^2 + bx + c = y$. The coefficients can be any random
+integer, but let us make sure that all of them are not $0$. The secret would again
+be the constant $c$. Now to implement the $\bmod$ stuff, we must choose a prime
+number to be the modulus to avoid any weirdness when doing the $\bmod$
+calculation. The modulus must also be greater than $S,K,N$. For this report, we
+will choose the next biggest prime number of the greatest number between the
+$S,K,N$. Now lets get the steps:
+\begin{enumerate}
+    \item Input the $S,K,N$, making sure that $N \geq K$
+    \item Calculate what the 
+\end{enumerate}
+
+\begin{algorithm}
+\caption{Find Maximum in Array}
+\begin{algorithmic}[1] % The [1] adds line numbers
+\Procedure{FindMax}{$A, n$}
+    \State $max \gets A[1]$
+    \For{$i \gets 2$ to $n$}
+        \If{$A[i] > max$}
+            \State $max \gets A[i]$
+        \EndIf
+    \EndFor
+    \State \Return $max$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
 \end{flushleft}
 \end{document}
