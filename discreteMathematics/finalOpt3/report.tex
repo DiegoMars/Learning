@@ -12,6 +12,7 @@
 % Psuedocode
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{float} % To avoid the algorithms floating around
 
 % Margin - 1 inch on all sides
 \usepackage[letterpaper]{geometry}
@@ -72,7 +73,8 @@
 \begin{center}
     \bfseries\LARGE Course Project: Cryptographic Algorithms \& 
                     ModularArithmetic \\
-    \bfseries\Large Shamir’s Secret Sharing
+    \bfseries\Large Shamir’s Secret Sharing \\
+    \bfseries\large By Diego Martinez
 \end{center}
 
 %Changes paragraph indentation to 0.5in
@@ -240,8 +242,8 @@ equation, for example $(x+4) \bmod 7$ we get:
 \end{center}
 Looking at this graph, we can see that the equation $y=x+4$ loops around under
 the line $x=7$. How does this apply to the SSS algorithm? Now that we have a
-polynomial with the secret of $4$  under the modulus of $7$ in this case, we make
-some shares. Let $x=1,2,3,4$. Plug them into the polynomial and we get
+polynomial with the secret of $4$  under the modulus of $7$ in this case, we
+make some shares. Let $x=1,2,3,4$. Plug them into the polynomial and we get
 $y=5,6,0,1$. Now the points look scrambled, and would be much harder to brute
 force looking for a polynomial that contains the secret using Lagrange if there
 are some shares known but not enough to recreate the secret. The divisor number
@@ -254,44 +256,130 @@ done regularly. The way around this is that we have to find the \textbf{mod
 inverse} of the divisor. The $\bmod$ inverse of a number $a$ is a number $b$
 under $\bmod c$ such that $b \cdot a \bmod c = 1$. For example, the $\bmod$
 inverse of $7$ under $\bmod 5$ is $3$ since $3 \cdot 7 \bmod 5 = 1$. Now that we
-have the $\bmod$ inverse, we can multiply the dividend by the $\bmod$ inverse and
-that would be how we do division under $\bmod$. 
+have the $\bmod$ inverse, we can multiply the dividend by the $\bmod$ inverse
+and that would be how we do division under $\bmod$. 
 
 \section{\textbf{Pseudocode}}
 
-Now how can we implement all of this? Let us first look at encryption. To encrypt
-a secret, we need the number that we want to be a secret $S$, the number of
-shares $N$, and the threshold $K$, making sure that $N \geq K$ since we need 
-enough shares to recreate the secret. The degree of polynomial needed to encrypt 
-the secret would be $K-1$, so for threshold of $3$, we would need a second degree
-polynomial. for example $ax^2 + bx + c = y$. The coefficients can be any random
-integer, but let us make sure that all of them are not $0$. The secret would again
-be the constant $c$. Now to implement the $\bmod$ stuff, we must choose a prime
-number to be the modulus to avoid any weirdness when doing the $\bmod$
-calculation. The modulus must also be greater than $S,K,N$. For this report, we
-will choose the next biggest prime number of the greatest number between the
-$S,K,N$. Now lets get the steps:
+Now how can we implement all of this? Let us first look at \textbf{encryption}.
+To encrypt a secret, we need the number that we want to be a secret $S$, the
+number of shares $N$, and the threshold $K$, making sure that $N \geq K$ since
+we need enough shares to recreate the secret. The degree of polynomial needed to
+encrypt the secret would be $K-1$, so for threshold of $3$, we would need a
+second degree polynomial. for example $ax^2 + bx + c = y$. The coefficients can
+be any random integer, but let us make sure that all of them are not $0$. The
+secret would again be the constant $c$. Now to implement the $\bmod$ stuff, we
+must choose a prime number to be the modulus to avoid any weirdness when doing
+the $\bmod$ calculation. The modulus must also be greater than $S,K,N$. For
+this report, we will choose the next biggest prime number of the greatest number
+between the $S,K,N$. \textbf{Now lets get the steps for encryption}:
 \begin{enumerate}
     \item Input the $S,K,N$, making sure that $N \geq K$
     \item Calculate what degree polynomial would be needed $(K-1)$
     \item Calculate modulus (a prime number $> S,K,N$)
-    \item 
+    \item Populate the coefficient with random numbers less than modulus
+    \item Create $N$ shares using the coefficients
+    \item Output the shares and the calculated modulus
 \end{enumerate}
 
-\begin{algorithm}
-\caption{Find Maximum in Array}
+% General encryption algorithm
+\begin{algorithm}[H]
+\caption{Encryption}
 \begin{algorithmic}[1] % The [1] adds line numbers
-\Procedure{FindMax}{$A, n$}
-    \State $max \gets A[1]$
-    \For{$i \gets 2$ to $n$}
-        \If{$A[i] > max$}
-            \State $max \gets A[i]$
-        \EndIf
+\Statex \textbf{Input:} A value $S$ to encrypt, a value $K$ as a threshold, and
+        a value $N$ as the number of shares wanted
+\Statex \textbf{Output:} Calculated shares and modulus
+\Function{generateY}{polynomial, $x$, modulus}
+    \State $y:=$ polynomial[$0$]
+    \For{i \textbf{to} (len(polynomial)-1)}
+        \State $y := y + x^{i+1}$
     \EndFor
-    \State \Return $max$
-\EndProcedure
+    \State \Return $y \bmod$ modulus
+\EndFunction
+\State
+% End program if condition
+\If{$K > N$}
+    \State \textbf{End}
+\EndIf
+\State
+\State degree $:= K-1$ 
+\State
+% Get the biggest number out of S,K,N and calculate modulus accordingly
+\If{secret $\geq K$ \textbf{and} secret $\geq N$}
+    \State tempMod $:=$ secret
+\ElsIf{$K \geq $ secret \textbf{and} $K \geq N$}
+    \State tempMod $:= K$
+\Else
+    \State tempMod $:= N$
+\EndIf
+\State modulus = \Call{greaterPrime}{tempMod}
+\State polynomial $:=$ [$S$]
+\For{$i:=0$ \textbf{to} degree}
+    \State polynomial.append(randint($1,\text{modulus}-1$))
+\EndFor
+\State
+\State shares = []
+\For{$i:=0$ \textbf{to} $N$}
+    \State point $:=$ []
+    \State $x:=$ randint(1, $\mathbb{Z}$)
+    \State $y:=$ \Call{generateY}{polynomial, $x$, modulus}
+    \State point.append($x$)
+    \State point.append($y$)
+    \State shares.append(point)
+\EndFor
+\State \Return (shares, modulus)
 \end{algorithmic}
 \end{algorithm}
+You see a function called GREATERPRIME was used in this Pseudocode, and it will
+be defined later. In lines 2-11, we have a function that generates a $y$ value
+given the polynomial coefficients, the $x$ value, and the modulus. By
+multiplying each coefficient by $x$ to its respective power and adding the $y$
+constant, or secret, we are able to generate $x$'s $y$ point, and that would be
+one share, of course after taking the modulus of the $y$ to make sure that it is
+in the field of $y$ values that our polynomial is in.
+
+% Prime number functions
+\begin{algorithm}[H]
+\caption{Prime number functions}
+\begin{algorithmic}[1]
+% Function for to check if number is prime
+\Function{prime}{$n$}
+    \For{$i:=0 \textbf{ to } \sqrt{|n|}+1 $}
+        \If{$n \bmod i = 0$}
+            \State \Return \textbf{false}
+        \EndIf
+        \State \Return \textbf{true}
+    \EndFor
+\EndFunction
+\State
+% Function to calculate a prime number bigger than number
+\Function{greaterprime}{number}
+    \State{primeNumber $:=$ number $+1$}
+    \While{\textbf{not} \Call{prime}{primeNumber}}
+        \State primeNumber $:=$ primeNumber $+1$
+    \EndWhile
+    \State \Return primeNumber
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+Here we have how we can calculate our prime number for modulus. where we brute
+force finding the prime number by continuously adding 1 to the given number
+that number is prime. To the best of my knowledge, this is the best of finding
+a prime number.
+
+Lets move onto the fun part, \textbf{the decryption}. Note that the modulus must
+be known to recreate the secret, as to my knowledge, there is no way to
+calculate the modulus with just the shares. When it comes to mod, remember that
+we cannot do regular division when under mod and that we would need to find the
+mod inverse of the divisor then multiply it by the dividend. I am not sure if it
+is correct, but it works for me, but after getting the Lagragne polynomial's
+values at $x=0$, multiply by there respective $y$ values, then added them all
+up, we have to do the mod of that final value. \textbf{Now lets go over the 
+steps for decryption:}
+\begin{enumerate}
+    \item Input some number of shares and the modulus
+    \item 
+\end{enumerate}
 
 \end{flushleft}
 \end{document}
