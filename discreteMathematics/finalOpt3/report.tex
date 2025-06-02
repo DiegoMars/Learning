@@ -106,11 +106,11 @@ covered later.
 
 \section{\textbf{Mathematical background}}
 In order to implement SSS, there are some concepts to go over first. The first
-which is the \textbf{Lagrange Polynomial Interpolation}, which is used to find the
-polynomial of the lowest degree that goes through all of the shares. A Lagrange
-polynomial of some share's $x$ coordinate $x_i$, is a polynomial that its $y$
-value at that $x_i$ is $1$, and is $0$ for every other share's, at least the
-shares inputted, $x$ coordinate.
+which is the \textbf{Lagrange Polynomial Interpolation}, which is used to find
+the polynomial of the lowest degree that goes through all of the shares. A
+Lagrange polynomial of some share's $x$ coordinate $x_i$, is a polynomial that
+its $y$ value at that $x_i$ is $1$, and is $0$ for every other share's, at leas
+the shares inputted, $x$ coordinate.
 
 For example, let's say there are some $x$ coordinates $x=1,2,3,4$, the Lagrange
 equation of the $x$ coordinate $2$, would be some polynomial such that $f(2)=1$,
@@ -147,8 +147,8 @@ Now looking at the second equation, this is the implementation of multiplying
 each Lagrange polynomial by their respective $y$, then adding all Lagrange
 polynomials to finally get the polynomial that goes through all the shares.
 
-Walking through the full example of $x=1,2,3,4$, the following Lagrange polynomials
-are found:
+Walking through the full example of $x=1,2,3,4$, the following Lagrange
+polynomials are found:
 \begin{align*}
  l_1(x) = \frac{x-2}{1-2} \times \frac{x-3}{1-3} \times \frac{x-4}{1-4} \\
  l_2(x) = \frac{x-1}{2-1} \times \frac{x-3}{2-3} \times \frac{x-4}{2-4} \\
@@ -190,15 +190,15 @@ would be looked for, as the constant of the polynomial would be the secret. So
 the new equations for the use of SSS would be:
 \begin{align*}
  l_{i}(0) = \prod_{j=0, j\neq i}^{n} \frac{-x_{j}}{x_{i}-x_{j}} \\
- f(x) = \sum_{i=0}^{K-1} y_{i}l_{i}(0)
+ f(0) = \sum_{i=0}^{K-1} y_{i}l_{i}(0)
 \end{align*}
 The bottom equation would stay the same.
 
 With just the Lagrange Polynomial Interpolation, a basic version of SSS can be
 achieved, but another concept that could be added to improve the security of the
 algorithm. This concept is \textbf{Modular Arithmetic}. Modular Arithmetic is
-where the remainder of the division. For example, the remainder of 8 divided by 6 is
-2. Equivalently, $8 \bmod 6$ would be $2$. When applying this to an
+where the remainder of the division. For example, the remainder of 8 divided by
+6 is 2. Equivalently, $8 \bmod 6$ would be $2$. When applying this to an
 equation, for example $(x+4) \bmod 7$ we get:
 \begin{center}
 \begin{tikzpicture}
@@ -371,15 +371,15 @@ force finding the prime number by continuously adding 1 to the given number
 that number is prime. To the best of my knowledge, this is the best of finding
 a prime number.
 
-Lets move on to the fun part, \textbf{the decryption}. Note that the modulus must
-be known to recreate the secret, as to my knowledge, there is no way to
+Lets move on to the fun part, \textbf{the decryption}. Note that the modulus
+must be known to recreate the secret, as to my knowledge, there is no way to
 calculate the modulus with just the shares. When it comes to mod, remember that
-we cannot do regular division when under $\bmod$ and that we would need to find the
-$\bmod$ inverse of the divisor then multiply it by the dividend. I am not sure if it
-is correct, but it works for me, but after getting the Lagragne polynomial's
-values at $x=0$, multiply by there respective $y$ values, then added them all
-up, we have to do the $\bmod$ of that final value. \textbf{Now lets go over the 
-steps for decryption:}
+we cannot do regular division when under $\bmod$ and that we would need to find
+the $\bmod$ inverse of the divisor then multiply it by the dividend. I am not
+sure if it is correct, but it works for me, but after getting the Lagragne
+polynomial's values at $x=0$, multiply by there respective $y$ values, then
+added them all up, we have to do the $\bmod$ of that final value.
+\textbf{Now lets go over the steps for decryption:}
 \begin{enumerate}
     \item Input some number of shares and the modulus
     \item Find the value of the Lagrange polynomial for every point at $x=0$
@@ -449,7 +449,28 @@ decryption algorithms of SSS, and translated it to Pseudocode. The coding
 implementation can be found here: 
 \url{https://www.jdoodle.com/ga/eAkyDME7ZOQgF91souI%2B7g%3D%3D}
 
-\section{\textbf{Security analysis}}
+\section{\textbf{Security Analysis}}
+
+In SSS, it would be impossible to reconstruct the secret without having enough
+shares to meet the threshold. The modular arithmetic makes it harder to gain
+some information about the secret.
+
+The assumptions here are that the number of shares $N$, the threshold $K-1$, and
+the modulus is known. No matter what, you cannot reconstruct the secret without
+having enough shares to meet the threshold. Because of this, the SSS encryption
+algorithm does not rely on how hard it is to compute the secret, but
+on a mathematical property.
+
+The point of failure when it comes to SSS, would not be the algorithm itself but
+on how secure the storage of the shares is, and things like that.
+
+\section{\textbf{Real-world relevance}}
+
+In the real world, the idea of splitting up a secret among multiple people, and
+and only reconstructing it given enough people to agree, is a concept that is
+used in digital wallets, vaults, or any other systems where you would want
+multiple people with permission to access something. One can say that something
+like nuclear launch codes can also be an example.
 
 \end{flushleft}
 \end{document}
