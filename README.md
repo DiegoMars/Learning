@@ -6,7 +6,6 @@ Plan to have code on:
 * Javascript
 * C++
 * LaTex
-* Sql
 * Godot
-* Rust (maybe)
+* Rust
 * Have lil projects about stuff I want to learn
