@@ -73,10 +73,10 @@ switch:
         BIC     R0,R0,#0b10111  ;@ Clear state and output
         EORS    R7,R8,#8        ;@ Checking if input = 1
         BNE     state40         ;@ If no zero flag, run input 0 code
-        ORR     R0,R0,#0b00000  ;@ Set state and output
+        ORR     R0,R0,#0b10000  ;@ Set state and output
         BX      LR
         state40:
-        ORR     R0,R0,#0b00001  ;@ Set state and output
+        ORR     R0,R0,#0b10001  ;@ Set state and output
         BX      LR              ;@ Return
 
         state5:
