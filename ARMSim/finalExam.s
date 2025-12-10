@@ -39,6 +39,7 @@ STATE0:          ;@LOCKED (Initial)State
         B MAIN_LOOP
 	SKIP0:
 	MOV R0, #0	;@  wrong → stay locked
+	MOV R0, #0
         B MAIN_LOOP
 
 ;@  -----------------------------
@@ -51,6 +52,7 @@ STATE1:
         B MAIN_LOOP
 	SKIP1:
 	MOV R0, #0	;@  wrong → stay locked
+	MOV R0, #0
         B MAIN_LOOP
 
 ;@  -----------------------------
@@ -63,6 +65,7 @@ STATE2:
         B MAIN_LOOP
 	SKIP2:
 	MOV R0, #0	;@  wrong → stay locked
+	MOV R0, #0
         B MAIN_LOOP
 
 ;@  -----------------------------
@@ -75,6 +78,7 @@ STATE3:
         B MAIN_LOOP
 	SKIP3:
 	MOV R0, #0	;@  wrong → stay locked
+	MOV R0, #0
         B MAIN_LOOP
 
 ;@  -----------------------------
