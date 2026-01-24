@@ -6,3 +6,6 @@
 **/*.s
 **/*.gch
 **/a.out
+**/build/*
+**/.cache/*
+**/CMakeLists.txt
