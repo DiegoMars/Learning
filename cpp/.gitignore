@@ -1,6 +1,5 @@
-# Ignore all common GCC-generated files recursively
 **/*.o
-**/a.out
+**/*.out
 **/*.exe
 **/*.i
 **/*.s
