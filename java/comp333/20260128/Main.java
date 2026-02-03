@@ -1,25 +1,26 @@
-import java.io.FileWriter;
-import java.io.File;
 import java.io.IOException;
 
 public class Main {
-	// Simplyfying method
-	public static void write(String fileName, String thing) throws IOException {
-		if (fileName == null){
-			// Write to terminal
-			System.out.println(thing);
-		} else {
-			// write to file
-			// With this code, this repeatably opens the file (meaning it deletes
-			// it if already exists and creates a new one of the same name). Typically
-			// you only open it once
-			FileWriter writer = new FileWriter(new File(fileName));
-			writer.write(thing);
-			writer.close();
-		}
-	}
+	// public static FileWriter writer = null;
+	//
+	// // Simplyfying method
+	// public static void write(String fileName, String thing) throws IOException {
+	// 	if (fileName == null){
+	// 		// Write to terminal
+	// 		System.out.println(thing);
+	// 	} else {
+	// 		// write to file
+	// 		// With this code, this repeatably opens the file (meaning it deletes
+	// 		// it if already exists and creates a new one of the same name). Typically
+	// 		// you only open it once
+	// 		if (writer == null){
+	// 			writer = new FileWriter(new File(fileName));
+	// 		}
+	// 		writer.write(thing);
+	// 	}
+	// }
 
-	public static int doComputation(String fileName) throws IOException {
+	public static int doComputation(Writer writer) throws IOException {
 		// Talks about how there is no indicator for progress which
 		// if common when there is something that runs for a long time
 		int retval = 0;
@@ -27,7 +28,7 @@ public class Main {
 			if (retval % 100 == 0) {
 				// Here is something that writes depending on what the
 				// output is wanted
-				write(fileName, "" + retval);
+				writer.write("" + retval);
 			}
 		}
 		return retval;
@@ -45,7 +46,14 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		String fileName = getFileName(args);
-		int result = doComputation(fileName);
-		write(fileName, "" + result);
+		Writer writer;
+		if (fileName == null) {
+			writer = new TerminalWriter();
+		} else {
+			writer = new MyFileWriter(fileName);
+		}
+		int result = doComputation(writer);
+		writer.write("" + result);
+		writer.close();
 	}
 }
