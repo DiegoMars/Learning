@@ -47,6 +47,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		String fileName = getFileName(args);
 		Writer writer;
+		// This doesn't work with overloading, not as intended at least
 		if (fileName == null) {
 			writer = new TerminalWriter();
 		} else {
