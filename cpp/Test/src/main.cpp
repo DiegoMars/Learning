@@ -32,13 +32,13 @@ int searchInsert(vector<int>& nums, int target) {
     int pos = binarySearch(nums, target);
     int value = nums[pos];
     if (value != target) {
-        if (value < target){
-            return pos +1;
+        while (pos < nums.size() -1 && value < target) {
+            pos++;
+            value = nums[pos];
         }
-        if (pos > 0) {
-            return pos -1;
-        }
-        return 0;
+    }
+    if (value < target) {
+        return pos + 1;
     }
     return pos;
 }
