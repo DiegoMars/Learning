@@ -22,10 +22,14 @@ public class Nil implements ImmutableList {
     }
 
     public ImmutableList append(final ImmutableList other) {
-        return new Nil();
+        return other;
     }
 
     public boolean contains(final int value) {
         return false;
+    }
+
+    public ImmutableList addAmount(int amount) {
+        return this;
     }
 } // Nil

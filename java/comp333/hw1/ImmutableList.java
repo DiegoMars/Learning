@@ -6,4 +6,5 @@ public interface ImmutableList {
     public boolean contains(final int value); // Need to implement
     public String toString();
     public int hashCode();
+    public ImmutableList addAmount(int amount); // Demonstration one
 } // ImmutableList

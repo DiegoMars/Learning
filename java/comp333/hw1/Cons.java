@@ -24,7 +24,7 @@ public class Cons implements ImmutableList {
     public int hashCode() {
         return sum();
     } // hashCode
-    
+
     public int length() {
         return tail.length() + 1;
     }
@@ -34,10 +34,15 @@ public class Cons implements ImmutableList {
     }
 
     public ImmutableList append(final ImmutableList other) {
-        return null;
+        return new Cons(head, tail.append(other));
     }
 
     public boolean contains(final int value) {
         return value == head || tail.contains(value);
     }
+
+    public ImmutableList addAmount(int amount){
+        return new Cons(head + amount, tail.addAmount(amount));
+    }
+
 } // Cons
