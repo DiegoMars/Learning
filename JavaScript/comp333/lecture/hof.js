@@ -12,7 +12,7 @@ function printAll(arr) {
   //   let elem = arr[index];
   //   console.log(elem);
   // }
-  printSome(arr, (e) => true); // This is called an arrow function
+  printSome(arr, () => true); // This is called an arrow function
 }
 // While these are kind of free (as in, passing a function), there
 // is extra memory being allocated. One place where this happens
@@ -22,7 +22,7 @@ function printAll(arr) {
 function printLessThan(arr, value) { // The value here is an outer context
   printSome(arr, 
     function(e) {
-      return e > value; // value is copied here
+      return e < value; // value is copied here
     }
   );
 }
