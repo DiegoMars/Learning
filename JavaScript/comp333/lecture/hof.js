@@ -40,3 +40,47 @@ function printGreaterThan(arr, value) {
     }
   );
 }
+
+function callMe(foo) {
+  foo();
+}
+
+function indirectIf(b, f1, f2) {
+  if (b) {
+    f1();
+  } else {
+    f2();
+  }
+}
+
+function indirectWhile(f1, f2) {
+  if (f1()){
+    f2();
+    indirectWhile(f1, f2);
+  }
+}
+
+// Debugging function
+// function debug(...) {...}
+// function add(x,y) {return x+y;}
+// let debugAdd = debug(add);
+// let result = debugAll(2, 3);
+//    First: 2
+//    Second: 3
+//    Return Value: 5
+//  console.log(result); // 5
+//  
+//  Prof mentioned how debuggers sort of work this way where a
+//  function is passed to the debugging function so you can, well,
+//  debug
+// f(p1, p2)
+function debug(f) {
+  return function(p1, p2) {
+    console.log("p1: " + p1);
+    console.log("p2: " + p2);
+    let val = f(p1,p2);
+    console.log("return: " + val);
+    return val;
+  }
+}
+
