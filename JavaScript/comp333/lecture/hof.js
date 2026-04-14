@@ -60,6 +60,21 @@ function indirectWhile(f1, f2) {
   }
 }
 
+function add(a, b) { return a + b; }
+function sub(a, b) { return a - b; }
+
+function delayedAdd(x) {
+  return function(y) {
+    return x + y;
+  };
+}
+
+function withAdd(fun, val) {
+  return function(val1, val2) {
+    return fun(val1, val2) + val;
+  };
+}
+
 // Debugging function
 // function debug(...) {...}
 // function add(x,y) {return x+y;}
