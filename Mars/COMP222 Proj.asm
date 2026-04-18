@@ -6,7 +6,7 @@
 #VEC 0 = Keyboard, 1 = mouse
 #reg map:  $t9 = stop val; $s0,$s1 for int vectors; $s2=EC
 .data
-vector: .ascii "#cev" #reserve 4 bytes
+test: .word 0 #reserve word
 title: .asciiz  "222 Projects: Interrupts by Jeff D\n"
 .align 2
 prompt1: .asciiz "Enter Int TYPE: 0=NMI, 1=NVI, 2=VI, 9=Halt"
@@ -86,6 +86,16 @@ b loop_main
 .text
 #saves: $s0=Int nbr, $s1=vector nbr
 #$t9=stop counter
+#lw $1,0 #illegal address exception!
+#b start #skip test
+#--cache test--
+li $t0,0x12345678
+sb $t0,test+1($0) #store block 0: MISS
+lw $t1,test #load block 0: HIT
+sb $t0,test+16($0) #store block 0: MISS
+lw $t1,test+16 #load
+#--end test--
+start:
 li $t9,stop
 La $a0, title
 Jal printStr
