@@ -99,3 +99,46 @@ function debug(f) {
   }
 }
 
+function forEach(arr, f) {
+  for (let index = 0; index < arr.length; index++) {
+    let element = arr[index];
+    f(element);
+  }
+}
+// You would then call this function like you would `map` or `filter`
+// Ex:
+// [0,1,2,3,4,5].forEach((e) => console.log(e))
+//
+// let arr = [0,1,2,3,4,5]
+// arr.forEach((e) => )
+
+function reduce(arr, startingValue, func) {
+  let accumulator = startingValue;
+  for (let index = 0; index < arr.length; index ++) {
+    let element = arr[index];
+    accumulator = func(accumulator, element);
+  }
+  return accumulator;
+}
+// There is also a library function that works the same as map or filter
+// Ex: arr.filter((e) => e > 4).reduce((a,e) => a + e, 0)
+
+function sum(arr) {
+  // let retval = 0;
+  // for (let index = 0; index < arr.length; index ++) {
+  //   let element = arr[index];
+  //   retval = retval + element;
+  // }
+  // return retval;
+  return reduce(arr, 0, (a, e) => a + e);
+}
+
+function product(arr) {
+  // let retval = 1;
+  // for (let index = 0; index < arr.length; index ++) {
+  //   let element = arr[index];
+  //   retval = retval * element;
+  // }
+  // return retval;
+  return reduce(arr, 1, (a, e) => a * e);
+}
