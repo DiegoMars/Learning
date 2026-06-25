@@ -3,6 +3,8 @@
 int LED_PIN = 11;
 int IN_PIN = 7;
 int val;
+bool pressed;
+bool on;
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);
@@ -11,9 +13,17 @@ void setup() {
 
 void loop() {
   val = digitalRead(IN_PIN);
-  if (val == LOW){
-    digitalWrite(LED_PIN, LOW);
+  if (val == HIGH) {
+    if (pressed) {
+      pressed = false;
+    } else {
+      pressed = true;
+    }
   } else {
-    digitalWrite(LED_PIN, HIGH);
+    if (pressed) {
+      digitalWrite(LED_PIN, HIGH);
+    } else {
+      digitalWrite(LED_PIN, LOW);
+    }
   }
 }
