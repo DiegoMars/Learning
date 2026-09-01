@@ -1,0 +1,69 @@
+# ==========================================
+# Visual Studio Hidden & User-Specific Files
+# ==========================================
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ==========================================
+# C++ Build & Output Directories
+# ==========================================
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+build/
+Build/
+bin/
+obj/
+out/
+
+# ==========================================
+# Compiled Object & Intermediate Files
+# ==========================================
+*.obj
+*.o
+*.pch
+*.gch
+*.tlog
+*.idb
+*.ipch
+
+# ==========================================
+# Debugger & Profiler Artifacts
+# ==========================================
+*.pdb
+*.ilk
+*.iobj
+*.ipdb
+*.sdf
+*.opensdf
+
+# ==========================================
+# Visual C++ Cache Files
+# ==========================================
+*.vc.db
+*.recipe
+
+# ==========================================
+# Package Manager & Build Tool Directories
+# ==========================================
+# vcpkg (C++ package manager)
+vcpkg_installed/
+
+# CMake artifacts (if using CMake instead of MSBuild)
+CMakeFiles/
+CMakeCache.txt
+CMakeWorkspace/
+CMakePresets.json.user
+
+# ==========================================
+# Local Environment Files
+# ==========================================
+*.env
+*.log
+*.tmp
