@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Diego\\repos\\Learning\\cpp\\COMP_465\\CS465TestProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D76CE1B7-D2B7-4B71-8BEA-DF34F30C7B04}|CS465TestProject\\CS465TestProject.vcxproj|C:\\Users\\Diego\\repos\\Learning\\cpp\\COMP_465\\CS465TestProject\\CS465TestProject\\OpenGlVk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D76CE1B7-D2B7-4B71-8BEA-DF34F30C7B04}|CS465TestProject\\CS465TestProject.vcxproj|solutionrelative:CS465TestProject\\OpenGlVk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OpenGlVk.cpp",
+              "DocumentMoniker": "C:\\Users\\Diego\\repos\\Learning\\cpp\\COMP_465\\CS465TestProject\\CS465TestProject\\OpenGlVk.cpp",
+              "RelativeDocumentMoniker": "CS465TestProject\\OpenGlVk.cpp",
+              "ToolTip": "C:\\Users\\Diego\\repos\\Learning\\cpp\\COMP_465\\CS465TestProject\\CS465TestProject\\OpenGlVk.cpp",
+              "RelativeToolTip": "CS465TestProject\\OpenGlVk.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-09-01T17:37:33.82Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
