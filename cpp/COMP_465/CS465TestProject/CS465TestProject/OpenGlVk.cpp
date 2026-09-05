@@ -238,6 +238,16 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
 
+        // Assignment Code
+        float timeValue = glfwGetTime();
+        float changingValue = (sin(timeValue) / 2.0f) + 0.5f;
+        vertices[3] = changingValue;
+        vertices[10] = changingValue;
+        vertices[17] = changingValue;
+        // need to rewrite the vertices to the VBO
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
         // --                    -- 
         // -- Rendering Commands -- 
         // --                    -- 
