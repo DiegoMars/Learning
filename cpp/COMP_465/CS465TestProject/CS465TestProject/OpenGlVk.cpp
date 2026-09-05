@@ -14,25 +14,61 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
+// Shaders usually follow the same structure:
+// #version version_number
+// in type in_variable_name; // Each input is known as a vertex attr
+//                           // Limit depends on hardware, with 16
+//                           // 4-component attr being guaranteed
+// // Use this for grabbing the maximum amount of vertex attr
+// int nrAttributes;
+// glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+// cout << "Maximum nr of vertex attr: " << nrAttributes << endl;
+//
+// out type out_variable_name;
+// // Lets you pass data from the app on the CPU to the shaders on
+// // the GPU. These are global, so they can be accessed from any
+// // shader in the shader program
+// uniform type uniform_name;
+// void main()
+// {
+//   //process input(s) and do some weird graphics stuff
+//   ...
+//   // output processed stuff to output variable
+//   out_variable_name = weird_stuff_we_processed;
+// }
+
+// FOLLOW THE "Our own shader class" LATER
 // This is written in GLSL (OpenGL Shading Language)
 // Converts 3d points to 2d I think
 const char* vertexShaderSource = "#version 330 core\n"
     // Create a vertex for 3d called aPos, into location 0
     "layout (location = 0) in vec3 aPos;\n"
+    "layout (location = 1) in vec3 aColor;\n"
+    //"out vec4 vertexColor;\n"
+    "out vec3 ourColor;\n"
     "void main()\n"
     "{\n"
         // Set output of position data into gl_position
         // as the shader output
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    //"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    "   gl_Position = vec4(aPos, 1.0);\n" // Little shortcut
+    //"   vertexColor = vec4(0.5, 0.0, 0.0, 1.0);\n"
+    "   ourColor = aColor;\n" // setting color from vertex data
     "}\0";
 
 // Fragment Shader. Calculates color output of pixels
 const char* fragmentShaderSource = "#version 330 core\n"
     "out vec4 FragColor;\n"
+    //"in vec4 vertexColor;\n" // linked by OpenGL from vertex shader
+    //"uniform vec4 ourColor;\n"
+    "in vec3 ourColor;\n"
     "void main()\n"
     "{\n"
         // Defines the color in RGBA
-    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    //"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    //"   FragColor = vertexColor;\n"
+    //"   FragColor = ourColor;\n"
+    "   FragColor = vec4(ourColor, 1.0);\n"
     "}\n";
 
 int main() {
@@ -82,7 +118,7 @@ int main() {
     unsigned int vertexShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER); // Creates shader with id
     // shader object, # of strings in source code, actual source code
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL); // Attach code to shader
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL); // Link code to shader
     glCompileShader(vertexShader); // Compile Shader
     // Check if compile succeeded
     int success;
@@ -141,10 +177,16 @@ int main() {
     // Are transformed to screen-space coordinates via viewport transform
     // These need to be between -1 and 1, then are translated to the window
     // These are 3d points that are translated into 2d
+    //float vertices[] = {
+    //    -0.5f, -0.5f, 0.0f,
+    //    0.5f, -0.5f, 0.0f,
+    //    0.0f, 0.5f, 0.0f
+    //};
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f, 0.5f, 0.0f
+        // positions         // colors
+         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
+        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
     };
     unsigned int VBO; // Or virtual buffer object
     glGenBuffers(1, &VBO); // Generates buffers with an ID
@@ -178,8 +220,15 @@ int main() {
     //   be 0 if you want OpenGL to figure it out, but array must be tightly packed
     // - Offest of where the position data begins in the buffer
     // All in all, this tells OpenGL how to interpret vertex data
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+    // for positions
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    // for colors
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     // ---           ---
     // --- Main Loop ---
@@ -195,16 +244,20 @@ int main() {
         // clears the buffer
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // Specifies color to clear the screen
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glUseProgram(shaderProgram); // You must use program first, as it sets the
+                                     // uniform into the shader program
+        //float timeValue = glfwGetTime();
+        //float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+        //int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+        //// update uniform
+        //glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+
         // Draws the object
-        glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3); // draws primitive with current shaders
                                           // primitive, start pos of vertex array,
                                           // end pos of vertex array
-
-        // --                        -- 
-        // -- End Rendering Commands -- 
-        // --                        -- 
 
         // Swaps color buffer (2D buffer with color values for every pixel), that is
         // used to render this iteration and output it to the screen
