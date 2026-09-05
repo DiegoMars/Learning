@@ -245,7 +245,6 @@ int main() {
         vertices[10] = changingValue;
         vertices[17] = changingValue;
         // need to rewrite the vertices to the VBO
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 
         // --                    -- 
