@@ -79,7 +79,7 @@ public class Project1 {
     }
 
     public static void addProcess() {
-        System.out.println("Enter the parent proces index for the child process:");
+        System.out.println("Enter the parent process index for the child process:");
         if (!input.hasNextInt()) {
             System.out.println("Invalid input.");
             input.nextLine();
@@ -113,15 +113,36 @@ public class Project1 {
             }
             table[youngestIndex].setYoungerSiblingIndex(childIndex);
         }
-        System.out.println("Process " + childIndex + " was added as a child of Process " + 
+        System.out.println("Process " + childIndex + " was added as a child of process " + 
             parentIndex + ".");
     }
 
     public static void removeProcess() {
-        System.out.println("Remove process");
+        System.out.println("Enter the parent process index whose descendants will be removed:");
+        if (!input.hasNextInt()) {
+            System.out.println("Invalid input.");
+            input.nextLine();
+            return;
+        }
+        int parentIndex = input.nextInt();
+        input.nextLine();
+        if (parentIndex < 0 || parentIndex >= table.length) {
+            System.out.println("Invalid process index");
+            return;
+        }
+        removeProcessRecursively(parentIndex);
+        System.out.println("All descendants of process " + parentIndex + " were removed.");
     }
 
+    // Something is weird here, removes initial process as well
     public static void removeProcessRecursively(int currentIndex) {
-        System.out.println("Remove process recursively");
+        if (currentIndex == -1 || table[currentIndex].getParentIndex() == -1) {
+            return;
+        }
+        removeProcessRecursively(table[currentIndex].getYoungerSiblingIndex());
+        removeProcessRecursively(table[currentIndex].getFirstChildIndex());
+        table[currentIndex].setParentIndex(-1);
+        table[currentIndex].setFirstChildIndex(-1);
+        table[currentIndex].setYoungerSiblingIndex(-1);
     }
 }
