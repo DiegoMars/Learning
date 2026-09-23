@@ -124,14 +124,20 @@ public class Project1 {
             input.nextLine();
             return;
         }
-        int parentIndex = input.nextInt();
+        int index = input.nextInt();
         input.nextLine();
-        if (parentIndex < 0 || parentIndex >= table.length) {
+        if (index < 0 || index >= table.length) {
             System.out.println("Invalid process index");
             return;
         }
-        removeProcessRecursively(parentIndex);
-        System.out.println("All descendants of process " + parentIndex + " were removed.");
+        if (table[index].getParentIndex() == -1) {
+            System.out.println("Process index is not active.");
+            return;
+        }
+        int parentIndex = table[index].getParentIndex();
+        removeProcessRecursively(index);
+        table[index].setParentIndex(parentIndex);
+        System.out.println("All descendants of process " + index + " were removed.");
     }
 
     // Something is weird here, removes initial process as well
