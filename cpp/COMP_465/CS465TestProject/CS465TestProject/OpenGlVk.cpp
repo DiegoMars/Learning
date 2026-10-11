@@ -34,7 +34,6 @@ int main() {
     }
     glfwMakeContextCurrent(window);
 
-
     // Initializes GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         cout << "Failed to initialize GLAD" << endl;
@@ -73,17 +72,6 @@ int main() {
     // ---                                      ---
     // --- Linking Vertex Data to Shaders Stuff ---
     // ---                                      ---
-    // Parameters of the following
-    // - Vertex attribute to configure (remember `layout (location = 0)`,
-    // - Size of vertex attribute
-    // - Type of data
-    // - Specify if we want the data normalized, (for when we input int data)
-    // - Stride, telling us the space between consecutive vertex attributes. Could also
-    //   be 0 if you want OpenGL to figure it out, but array must be tightly packed
-    // - Offset of where the position data begins in the buffer
-    // All in all, this tells OpenGL how to interpret vertex data
-    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-
     // for positions
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -113,23 +101,13 @@ int main() {
         // clears the buffer
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // Specifies color to clear the screen
         glClear(GL_COLOR_BUFFER_BIT);
-
         shader.use();
 
         // Draws the object
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3); // draws primitive with current shaders
-                                          // primitive, start pos of vertex array,
-                                          // end pos of vertex array
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
-        // Swaps color buffer (2D buffer with color values for every pixel), that is
-        // used to render this iteration and output it to the screen
         glfwSwapBuffers(window);
-        // *Double Buffers*: One buffer could create artifacts from not being rendered
-        // completely when shown, so 2 buffers are used. While one is shown the other
-        // is rendered
-
-		// Checks for any triggered events, update window size, and calls functions
         glfwPollEvents();
     }
 
