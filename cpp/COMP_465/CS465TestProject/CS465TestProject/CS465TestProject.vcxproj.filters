@@ -21,9 +21,15 @@
     <ClCompile Include="OpenGlVk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="textures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shaders.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
