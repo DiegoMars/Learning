@@ -11,7 +11,7 @@ using namespace std;
 
 void processInput(GLFWwindow* window);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 //glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
