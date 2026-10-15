@@ -157,6 +157,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MyCamera.h" />
     <ClInclude Include="shaders.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
