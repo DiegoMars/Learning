@@ -1,0 +1,12 @@
+/local
+/shared
+
+# Tempfiles
+*.blend[0-9]
+__pycache__
+
+# Thumbnail files from Mac/Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
