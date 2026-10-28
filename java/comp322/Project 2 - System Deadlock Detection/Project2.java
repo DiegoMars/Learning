@@ -1,3 +1,7 @@
+// Diego Martinez
+// COMP 322 Fall 2026
+// Project 2
+
 import java.util.Scanner;
 
 public class Project2 {
